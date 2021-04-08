@@ -1,43 +1,64 @@
 package pers.eddievim;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author eddie
- * @微信公众号 PositiveEddie
- * @create 2021/3/15 22:36
- * @description
+ * @create 2021/4/1 16:27
  */
 public class Solution {
+
     public static void main(String[] args) {
-        double[] jidian = new double[] {
-                1.9, 3.5, 2.2, 3.9, 2.9, 3, 2, 3, 1.6, 3.0, 4.2, 2.4, 3.1,4.9, 3.2, 4.8, 1.8, 3.7, 2,
-                1.5, 2.2, 3.2, 4.2, 4, 4.9, 3.4, 4, 0, 1.3, 1, 1.1, 1.6, 2.2, 3.5, 2.6, 3.6, 3, 3, 3.3,
-                4.6, 0, 2.7, 2.9, 3.7, 2.8, 2, 1.3, 1.7, 3.2, 3.5, 3, 3.3, 4.8, 0,
-                4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5
-        };
+        List<String> fun = fun(1, 1);
 
-        double[] xuefen = new double[] {
-                2, 2, 3, 0.5, 3, 1, 3, 1, 2, 0.5, 2, 0, 3, 2, 0.5, 0.25, 2.5, 1, 3,
-                3, 2.5, 2, 3, 0.5, 2, 0.5, 3, 0.25, 3, 1, 3, 3, 2, 3.5, 3, 2, 0.5, 2, 0,
-                2, 0.25, 3.5, 2, 1, 2, 3, 3, 2, 2, 3, 0.5, 3, 2, 0.25,
-                2, 3, 2.5, 2.5, 2, 3, 2.5, 0.5, 2, 2.5, 0
-        };
+        for (String string : fun) {
+            System.out.println(string);
+        }
+    }
 
-        double sum = 0;
+    private static List<String> ans;
 
-        for (double d : xuefen) {
-            sum += d;
+    public static List<String> fun(int n, int m) {
+        ans = new ArrayList<>();
+        dfs(n, m, 0, 0, 0, 0, new StringBuilder());
+        return ans;
+    }
+
+    private static void dfs(int n, int m, int nl, int nr, int ml, int mr, StringBuilder currStr) {
+        // 左括号过多 or 左括号数量少于右括号
+        int gapN = nl - nr;
+        int gapM = ml - mr;
+        if (nl > n || ml > m || nl < nr || ml < mr) {
+            return;
         }
 
-        double jiaquan = 0;
-
-        for (int i = 0; i < jidian.length; i++) {
-            jiaquan += jidian[i] * xuefen[i];
+        // 当前字符串是一种情况
+        if (nl == n && nr == n && ml == m && mr == m) {
+            StringBuilder stringBuilder = new StringBuilder(currStr);
+            ans.add(stringBuilder.toString());
+            return;
         }
 
-        System.out.println(jiaquan / sum);
+        currStr.append("(");
+        dfs(n, m, nl + 1, nr, ml, mr, currStr);
+        currStr.deleteCharAt(currStr.length() - 1);
 
-        System.out.println(jidian.length == xuefen.length);
+        if (currStr.length() > 0 && currStr.charAt(currStr.length() - 1) != '{') {
+            currStr.append(")");
+            dfs(n, m, nl, nr + 1, ml, mr, currStr);
+            currStr.deleteCharAt(currStr.length() - 1);
+        }
+
+
+        currStr.append("{");
+        dfs(n, m, nl, nr, ml + 1, mr, currStr);
+        currStr.deleteCharAt(currStr.length() - 1);
+
+        if (currStr.length() > 0 && currStr.charAt(currStr.length() - 1) != '(') {
+            currStr.append("}");
+            dfs(n, m, nl, nr, ml, mr + 1, currStr);
+            currStr.deleteCharAt(currStr.length() - 1);
+        }
     }
 }

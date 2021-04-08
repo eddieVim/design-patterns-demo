@@ -1,4 +1,4 @@
-package pers.eddievim.dp.action.watcher;
+package pers.eddievim.dp.action.observer;
 
 import java.util.ArrayList;
 import java.util.List;
