@@ -8,7 +8,7 @@ public class StatePatternTest {
     public static void main(String[] args) {
         Context context = new Context();
         System.out.println(context);
-        
+
         for (int i = 0; i < 3; i++) {
             context.flip();
             System.out.println(context);
@@ -40,28 +40,10 @@ class Context {
         state.flip(this);
     }
 
-    public boolean isSwitchA() {
-        return switchA;
-    }
-
-    public void setSwitchA(boolean switchA) {
-        this.switchA = switchA;
-    }
-
-    public boolean isSwitchB() {
-        return switchB;
-    }
-
-    public void setSwitchB(boolean switchB) {
-        this.switchB = switchB;
-    }
-
-    public boolean isSwitchC() {
-        return switchC;
-    }
-
-    public void setSwitchC(boolean switchC) {
-        this.switchC = switchC;
+    public void setSwitch(boolean bool) {
+        this.switchA = bool;
+        this.switchB = bool;
+        this.switchC = bool;
     }
 
     public State getState() {
@@ -85,9 +67,7 @@ class Running implements State {
     @Override
     public void flip(Context context) {
         context.setState(Closed.getInstance());
-        context.setSwitchA(false);
-        context.setSwitchB(false);
-        context.setSwitchC(false);
+        context.setSwitch(false);
     }
 
     private static class Singleton implements State.Singleton {
@@ -104,9 +84,7 @@ class Closed implements State {
     @Override
     public void flip(Context context) {
         context.setState(Running.getInstance());
-        context.setSwitchA(true);
-        context.setSwitchB(true);
-        context.setSwitchC(true);
+        context.setSwitch(true);
     }
 
     private static class Singleton implements State.Singleton {
