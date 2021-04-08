@@ -6,6 +6,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author eddie
+ */
 public class Subject {
     private List<Watcher> watchers = new ArrayList<>();
 
