@@ -43,7 +43,7 @@ class MemoryCache implements Cache {
     }
 
     public String getDataFromMemory() {
-        return "data from memory.";
+        return " data from memory.";
     }
 }
 
@@ -55,7 +55,7 @@ class DiskCache implements Cache {
     }
 
     public String getDataFromDisk() {
-        return "data from disk.";
+        return " data from disk.";
     }
 }
 
@@ -63,12 +63,12 @@ class LocalVisitor implements Visitor {
 
     @Override
     public void visitMemory(MemoryCache memoryCache) {
-        System.out.println("local visitor:" + memoryCache.getDataFromMemory());
+        System.out.println("local visitor: " + memoryCache.getDataFromMemory());
     }
 
     @Override
     public void visitDisk(DiskCache diskCache) {
-        System.out.println("local visitor:" + diskCache.getDataFromDisk());
+        System.out.println("local visitor: " + diskCache.getDataFromDisk());
     }
 }
 
