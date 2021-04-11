@@ -7,7 +7,7 @@ package pers.eddievim.dp.structural.adapter.objectadapter;
 public class ObjectAdapterPatternDemo {
     public static void main(String[] args) {
         MyExecutor myExecutor = new MyExecutor();
-        myExecutor.execute(new MyClazzAdapter(new MyClazz()));
+        myExecutor.execute(new Adapter(new Adaptee()));
     }
 }
 
@@ -21,21 +21,21 @@ interface MyRunnable {
     void run();
 }
 
-class MyClazz {
+class Adaptee {
     void sayHi() {
         System.out.println("Hi.");
     }
 }
 
-class MyClazzAdapter implements MyRunnable {
-    private MyClazz myClazz;
+class Adapter implements MyRunnable {
+    private Adaptee Adaptee;
 
-    public MyClazzAdapter(MyClazz myClazz) {
-        this.myClazz = myClazz;
+    public Adapter(Adaptee Adaptee) {
+        this.Adaptee = Adaptee;
     }
 
     @Override
     public void run() {
-        myClazz.sayHi();
+        Adaptee.sayHi();
     }
 }
