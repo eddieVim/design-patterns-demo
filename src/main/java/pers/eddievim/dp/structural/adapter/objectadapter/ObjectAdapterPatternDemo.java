@@ -1,13 +1,13 @@
-package pers.eddievim.dp.structural.adapter;
+package pers.eddievim.dp.structural.adapter.objectadapter;
 
 /**
  * @author eddie
- * @create 2021/4/10 15:32
+ * @create 2021/4/10 15:41
  */
-public class ClazzAdapterPatternDemo {
+public class ObjectAdapterPatternDemo {
     public static void main(String[] args) {
         MyExecutor myExecutor = new MyExecutor();
-        myExecutor.execute(new ClazzAdapter());
+        myExecutor.execute(new MyClazzAdapter(new MyClazz()));
     }
 }
 
@@ -27,10 +27,15 @@ class MyClazz {
     }
 }
 
-class ClazzAdapter extends MyClazz implements MyRunnable {
+class MyClazzAdapter implements MyRunnable {
+    private MyClazz myClazz;
+
+    public MyClazzAdapter(MyClazz myClazz) {
+        this.myClazz = myClazz;
+    }
 
     @Override
     public void run() {
-        sayHi();
+        myClazz.sayHi();
     }
 }
